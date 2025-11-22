@@ -1,0 +1,34 @@
+{
+  "name": "youokay-backend",
+  "version": "1.0.0",
+  "description": "You Okay? Safety Check Backend",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.6.1",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-validator": "^6.15.0",
+    "helmet": "^7.0.0",
+    "jsonwebtoken": "^9.0.0",
+    "moment": "^2.29.4",
+    "mongoose": "^7.0.0",
+    "multer": "^2.0.1",
+    "node-cron": "^3.0.2",
+    "nodemailer": "^6.10.1",
+    "stripe": "^18.4.0",
+    "twilio": "^4.19.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "nodemon": "^2.0.22"
+  }
+}
