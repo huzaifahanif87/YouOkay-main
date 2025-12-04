@@ -1,0 +1,112 @@
+import React from "react";
+import { Facebook, Twitter, Instagram, Linkedin,MessageSquare, Mail, Phone, MapPin } from "lucide-react"; // Droplets icon was not used, removed it from import
+import { Link } from "react-router-dom"; // Assuming react-router-dom is used for navigation
+
+const Footer = () => {
+  return (
+    <footer className="bg-primary text-white max-w-screen">
+      <div className="max-w-screen-xl mx-auto px-4 py-8"> {/* Changed max-w-screen to max-w-screen-xl for better content constraint */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12"> {/* Increased gap for better spacing */}
+          {/* Brand Info */}
+          <div className="space-y-4"> {/* Increased space-y for better vertical spacing */}
+            <div className="h-16 mx[-20px] flex items-center overflow-hidden">
+              <img
+                src="/logo.png" // Ensure this path is correct for your logo
+                alt="logo"
+                className="h-16 max-w-full object-start object-contain"
+              />
+            </div>
+
+            <p className="text-gray-300 text-sm">
+              Your daily companion for motivation, support, and connection. We deliver personalized texts and ensure you stay on track with gentle follow-ups.
+            </p>
+            <div className="flex space-x-3"> {/* Adjusted space-x */}
+              {[Facebook, Twitter, Instagram, Linkedin].map((Icon, i) => (
+                <button
+                  key={i}
+                  className="p-2 rounded-full hover:bg-blue-500 text-gray-300 hover:text-white transition-colors duration-300" // Updated hover to blue-500
+                  aria-label={`Link to ${Icon.displayName || Icon.name}`} // Added aria-label for accessibility
+                >
+                  <Icon className="w-5 h-5" />
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <ul className="space-y-2 text-sm">
+              {[
+                ["Home", "/"],
+                ["Plans", "/plans"], // Updated from Products to Plans
+                ["How It Works", "/how-it-works"], // New link for the service
+                ["About Us", "/about"],
+                ["Contact", "/contact"],
+                ["Blog", "/blog"],
+              ].map(([text, href]) => (
+                <li key={text}>
+                  <Link to={href} className="text-gray-300 hover:text-blue-400 transition-colors duration-300"> {/* Updated hover to blue-400 */}
+                    {text}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Service Categories (Renamed from Products) */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Our Services</h3> {/* Renamed heading */}
+            <ul className="space-y-2 text-sm">
+              {[
+                ["Motivational Texts", "/services/motivation"],
+                ["Productivity Nudges", "/services/productivity"],
+                ["Wellness Check-ins", "/services/wellness"],
+                ["Personalized Content", "/services/personalized"],
+                ["Follow-up Support", "/services/follow-up"],
+              ].map(([text, href]) => (
+                <li key={text}>
+                  <Link to={href} className="text-gray-300 hover:text-blue-400 transition-colors duration-300"> {/* Updated hover to blue-400 */}
+                    {text}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact & Newsletter */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Get In Touch</h3>
+            <div className="space-y-4 text-sm mb-6">
+              <div className="flex items-center gap-2 text-gray-300">
+                <MessageSquare className="h-5 w-5 text-blue-400" /> {/* Retained text-blue-400 for icons */}
+                +92-311-7337090
+              </div>
+              <div className="flex items-center gap-2 text-gray-300">
+                <Mail className="h-5 w-5 text-blue-400" /> {/* Retained text-blue-400 for icons */}
+                contact@hasoftwares.com.pk {/* Updated email placeholder */}
+              </div>
+              <div className="flex items-start gap-2 text-gray-300">
+                <MapPin className="h-5 w-5 text-blue-400 mt-1" /> {/* Retained text-blue-400 for icons */}
+                Islamabad, Pakistan {/* Updated address placeholder */}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer Bottom */}
+        <div className="border-t border-[#334155] mt-10 pt-6 text-sm text-gray-400 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p>© 2025 Your App Name. All rights reserved.</p> {/* Updated copyright */}
+          <div className="flex gap-4">
+            <p>Developed and maintained by</p>
+            <Link to='https://hasoftwares.com.pk' target="_blank" rel="noopener noreferrer"> {/* Added rel="noopener noreferrer" for security */}
+              <p className="hover:text-blue-400 transition-colors duration-300">HA SOFTWARES</p> {/* Added hover effect */}
+            </Link>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
