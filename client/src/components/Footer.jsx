@@ -1,5 +1,5 @@
 import React from "react";
-import { Facebook, Twitter, Instagram, Linkedin,MessageSquare, Mail, Phone, MapPin } from "lucide-react"; // Droplets icon was not used, removed it from import
+import { Facebook, Twitter, Instagram, Linkedin, MessageSquare, Mail, Phone, MapPin } from "lucide-react"; // Droplets icon was not used, removed it from import
 import { Link } from "react-router-dom"; // Assuming react-router-dom is used for navigation
 
 const Footer = () => {
@@ -39,11 +39,9 @@ const Footer = () => {
             <ul className="space-y-2 text-sm">
               {[
                 ["Home", "/"],
-                ["Plans", "/plans"], // Updated from Products to Plans
-                ["How It Works", "/how-it-works"], // New link for the service
+                ["How It Works", "/services"],
                 ["About Us", "/about"],
                 ["Contact", "/contact"],
-                ["Blog", "/blog"],
               ].map(([text, href]) => (
                 <li key={text}>
                   <Link to={href} className="text-gray-300 hover:text-blue-400 transition-colors duration-300"> {/* Updated hover to blue-400 */}
@@ -54,53 +52,61 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Service Categories (Renamed from Products) */}
+          {/* Service Categories */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Our Services</h3> {/* Renamed heading */}
+            <h3 className="text-lg font-semibold mb-4">Our Services</h3>
             <ul className="space-y-2 text-sm">
               {[
-                ["Motivational Texts", "/services/motivation"],
-                ["Productivity Nudges", "/services/productivity"],
-                ["Wellness Check-ins", "/services/wellness"],
-                ["Personalized Content", "/services/personalized"],
-                ["Follow-up Support", "/services/follow-up"],
-              ].map(([text, href]) => (
-                <li key={text}>
-                  <Link to={href} className="text-gray-300 hover:text-blue-400 transition-colors duration-300"> {/* Updated hover to blue-400 */}
-                    {text}
-                  </Link>
+                "Motivational Texts",
+                "Productivity Nudges",
+                "Wellness Check-ins",
+                "Follow-up Support",
+              ].map((text) => (
+                <li key={text} className="text-gray-300">
+                  {text}
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact & Newsletter */}
+          {/* Contact Info */}
           <div>
             <h3 className="text-lg font-semibold mb-4">Get In Touch</h3>
             <div className="space-y-4 text-sm mb-6">
-              <div className="flex items-center gap-2 text-gray-300">
-                <MessageSquare className="h-5 w-5 text-blue-400" /> {/* Retained text-blue-400 for icons */}
+              <a
+                href="tel:+923117337090"
+                className="flex items-center gap-2 text-gray-300 hover:text-blue-400 transition-colors"
+              >
+                <Phone className="h-5 w-5 text-blue-400" />
                 +92-311-7337090
-              </div>
-              <div className="flex items-center gap-2 text-gray-300">
-                <Mail className="h-5 w-5 text-blue-400" /> {/* Retained text-blue-400 for icons */}
-                contact@hasoftwares.com.pk {/* Updated email placeholder */}
-              </div>
-              <div className="flex items-start gap-2 text-gray-300">
-                <MapPin className="h-5 w-5 text-blue-400 mt-1" /> {/* Retained text-blue-400 for icons */}
-                Islamabad, Pakistan {/* Updated address placeholder */}
-              </div>
+              </a>
+              <a
+                href="mailto:contact@hasoftwares.com.pk"
+                className="flex items-center gap-2 text-gray-300 hover:text-blue-400 transition-colors"
+              >
+                <Mail className="h-5 w-5 text-blue-400" />
+                contact@hasoftwares.com.pk
+              </a>
+              <a
+                href="https://maps.google.com/?q=Islamabad,Pakistan"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-2 text-gray-300 hover:text-blue-400 transition-colors"
+              >
+                <MapPin className="h-5 w-5 text-blue-400 mt-1" />
+                Islamabad, Pakistan
+              </a>
             </div>
           </div>
         </div>
 
         {/* Footer Bottom */}
         <div className="border-t border-[#334155] mt-10 pt-6 text-sm text-gray-400 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p>© 2025 Your App Name. All rights reserved.</p> {/* Updated copyright */}
+          <p>© 2025 You Okay. All rights reserved.</p>
           <div className="flex gap-4">
             <p>Developed and maintained by</p>
-            <Link to='https://hasoftwares.com.pk' target="_blank" rel="noopener noreferrer"> {/* Added rel="noopener noreferrer" for security */}
-              <p className="hover:text-blue-400 transition-colors duration-300">HA SOFTWARES</p> {/* Added hover effect */}
+            <Link to='https://hasoftwares.com.pk' target="_blank" rel="noopener noreferrer">
+              <p className="hover:text-blue-400 transition-colors duration-300">HA SOFTWARES</p>
             </Link>
           </div>
         </div>

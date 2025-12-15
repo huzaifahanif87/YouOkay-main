@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom"
 import { LogOut, User, Settings, CalendarCheck } from "lucide-react"
 import { useAuth } from "../../context/AuthContext"
 import { assets } from "../../assets/assets"
-import SettingsPanel from "../UI/SettingsPanel"
 
 const UserMenu = ({ onLogout }) => {
   const [open, setOpen] = useState(false)
