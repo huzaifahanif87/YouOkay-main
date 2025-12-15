@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { ArrowRight, Droplets, Shield, Award } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { Link } from "react-router-dom"
 import { RevealOnScroll } from "./RevealOnScroll"
 
@@ -32,13 +32,12 @@ const heroSlides = [
     description:
       "From reminders to encouragement, our texts are tailored to help you achieve your goals, one day at a time.",
     primaryAction: { text: "Sign Up Now", href: "/auth/register" },
-    secondaryAction: { text: "Learn More", href: "/about" },
+    secondaryAction: { text: "Learn More", href: "/about-us" },
   },
 ]
 
 export function HeroCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0)
-  const [isAnimating, setIsAnimating] = useState(false)
   const intervalRef = useRef(null)
   const contentRef = useRef(null)
 
@@ -62,22 +61,6 @@ export function HeroCarousel() {
     window.addEventListener("scroll", onScroll)
     return () => window.removeEventListener("scroll", onScroll)
   }, [currentSlide])
-
-  const nextSlide = () => {
-    if (!isAnimating) {
-      setIsAnimating(true)
-      setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
-      setTimeout(() => setIsAnimating(false), 400)
-    }
-  }
-
-  const prevSlide = () => {
-    if (!isAnimating) {
-      setIsAnimating(true)
-      setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)
-      setTimeout(() => setIsAnimating(false), 400)
-    }
-  }
 
   const handleScroll = (href) => {
     const targetId = href.replace("#", "")
@@ -151,30 +134,6 @@ export function HeroCarousel() {
             </Link>
           )}
         </div>
-
-        {/* Features */}
-        {/* <div className="flex justify-center flex-wrap gap-12">
-          {[Droplets, Shield, Award].map((Icon, idx) => {
-            const feature = [
-              { title: "Pure Water", subtitle: "99.9% Purification" },
-              { title: "Certified", subtitle: "ISO Standards" },
-              { title: "Trusted", subtitle: "5000+ Customers" },
-            ][idx]
-            return (
-              <div
-                key={idx}
-                className="text-white text-center animate-fade-in"
-                style={{ animationDelay: `${700 + idx * 200}ms` }}
-              >
-                <div className="w-12 h-12 mx-auto mb-5 rounded-full bg-white/20 flex items-center justify-center">
-                  <Icon className="w-6 h-6" />
-                </div>
-                <h4 className="font-semibold">{feature.title}</h4>
-                <p className="text-sm text-white/80">{feature.subtitle}</p>
-              </div>
-            )
-          })}
-        </div> */}
       </div>
     </section>
   )

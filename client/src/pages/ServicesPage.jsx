@@ -1,13 +1,9 @@
 
-
-// Converted ServicesInline using Tailwind CSS (full conversion)
-
 import React from "react";
 import {
   Heart,
   Shield,
   MessageCircle,
-  Phone,
   Clock,
   Users,
   CheckCircle,
@@ -96,12 +92,12 @@ const ServicesInline = () => {
             Join our caring community today. Because everyone deserves to feel safe and supported.
           </p>
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8">
-            <button className="bg-white text-blue-500 font-semibold text-sm px-6 py-3 rounded-md">
+            <a href="/user/subscription" className="bg-white text-blue-500 font-semibold text-sm px-6 py-3 rounded-md">
               Get Started Now
-            </button>
-            <button className="border border-white text-white font-semibold text-sm px-6 py-3 rounded-md">
+            </a>
+            <a href="/about-us" className="border border-white text-white font-semibold text-sm px-6 py-3 rounded-md">
               Learn More
-            </button>
+            </a>
           </div>
           </div>
 
@@ -137,9 +133,9 @@ const ServicesInline = () => {
                 Complete privacy protection
               </li>
             </ul>
-            <button className="w-full bg-blue-500 text-white py-3 rounded-md font-medium flex items-center justify-center gap-2">
+            <a href="/user/subscription" className="w-full bg-blue-500 text-white py-3 rounded-md font-medium flex items-center justify-center gap-2">
               Start Caring Today <ArrowRight className="w-4 h-4" />
-            </button>
+            </a>
             <p className="text-xs text-center text-gray-500 mt-4">
               Join thousands who sleep better knowing someone cares
             </p>

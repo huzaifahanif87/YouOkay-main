@@ -10,7 +10,7 @@ export function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     try {
-      const { user, token } = await authService.login(email, password);
+      const { user } = await authService.login(email, password);
       setUser(user);
       return { success: true };
     } catch (err) {

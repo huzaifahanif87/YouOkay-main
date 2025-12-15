@@ -78,15 +78,15 @@ export const completeRegistration = async (req, res) => {
 
 
 export const sendPhoneCode = async (req, res) => {
-    const { phone } = req.body;
-    if (!phone) return res.status(400).json({ message: "Phone is required" });
+  const { phone } = req.body;
+  if (!phone) return res.status(400).json({ message: "Phone is required" });
 
-    const code = Math.floor(100000 + Math.random() * 900000).toString();
+  const code = Math.floor(100000 + Math.random() * 900000).toString();
 
-    saveCode(phone, code); // ✅ store in memory
-    await sendCODE(phone, code);
+  saveCode(phone, code); // ✅ store in memory
+  await sendCODE(phone, code);
 
-    res.json({ message: "Verification code sent via SMS" });
+  res.json({ message: "Verification code sent via SMS" });
 };
 
 export const verifyPhoneCode = async (req, res) => {
@@ -108,48 +108,58 @@ export const verifyPhoneCode = async (req, res) => {
 
 
 export const login = async (req, res) => {
-    try {
-        const errors = validationResult(req)
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ message: errors.array()[0].msg })
-        }
-
-        const { email, password } = req.body
-
-        // Find user by email
-        const user = await User.findOne({ email })
-        if (!user) {
-            return res.status(403).json({ message: "Please register first." });
-        }
-        if (!user.isPhoneVerified) {
-            return res.status(403).json({ message: "Please verify your phone to log in." });
-        }
-
-
-        // Check password
-        const isMatch = await user.comparePassword(password)
-        if (!isMatch) {
-            return res.status(400).json({ message: "Invalid credentials" })
-        }
-
-        // Generate JWT token
-        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET || "fallback_secret", { expiresIn: "7d" })
-
-        res.json({
-            message: "Login successful",
-            token,
-            user: {
-                id: user._id,
-                name: user.name,
-                email: user.email,
-                role: user.role,
-                image: user.image,
-            },
-        })
-    } catch (error) {
-        console.error("Login error:", error)
-        res.status(500).json({ message: "Server error during login" })
+  try {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ message: errors.array()[0].msg })
     }
+
+    const { email, password } = req.body
+
+    // Find user by email
+    const user = await User.findOne({ email })
+    if (!user) {
+      return res.status(403).json({ message: "Please register first." });
+    }
+    if (!user.isPhoneVerified) {
+      return res.status(403).json({ message: "Please verify your phone to log in." });
+    }
+
+
+    // Check password
+    const isMatch = await user.comparePassword(password)
+    if (!isMatch) {
+      return res.status(400).json({ message: "Invalid credentials" })
+    }
+
+    // Generate JWT token
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET || "fallback_secret", { expiresIn: "7d" })
+
+    res.json({
+      message: "Login successful",
+      token,
+      user: {
+        id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        phone: user.phone,
+        dob: user.dob,
+        plan: user.plan,
+        role: user.role,
+        isPhoneVerified: user.isPhoneVerified,
+        lastCheckIn: user.lastCheckIn,
+        isPaused: user.isPaused,
+        pausedUntil: user.pausedUntil,
+        emergencyContacts: user.emergencyContacts,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+      },
+    })
+  } catch (error) {
+    console.error("Login error:", error)
+    res.status(500).json({ message: "Server error during login" })
+  }
 }
 
 export const getCurrentUser = async (req, res) => {

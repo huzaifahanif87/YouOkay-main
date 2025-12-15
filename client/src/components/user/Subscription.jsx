@@ -32,23 +32,22 @@ export default function Subscription() {
           )}
         </div>
         {isPremium && (
-  <button
-    onClick={async () => {
-      try {
-        const confirm = window.confirm("Cancel at end of billing period?");
-        if (!confirm) return;
-        const res = await cancelSubscription(user.subscriptionId);
-        alert(res.message);
-        refreshUser(); // Optional
-      } catch (err) {
-        alert("Failed to cancel subscription");
-      }
-    }}
-    className="mt-4 inline-flex items-center gap-2 px-4 py-2 text-red-600 border border-red-600 rounded hover:bg-red-100 transition"
-  >
-    Cancel Subscription
-  </button>
-)}
+          <button
+            onClick={async () => {
+              try {
+                const confirm = window.confirm("Cancel at end of billing period?");
+                if (!confirm) return;
+                const res = await cancelSubscription(user.subscriptionId);
+                alert(res.message);
+              } catch (err) {
+                alert("Failed to cancel subscription");
+              }
+            }}
+            className="mt-4 inline-flex items-center gap-2 px-4 py-2 text-red-600 border border-red-600 rounded hover:bg-red-100 transition"
+          >
+            Cancel Subscription
+          </button>
+        )}
 
 
         <div className="text-sm text-gray-600">
