@@ -7,7 +7,7 @@ import "dotenv/config";
 import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./configs/db.js";
-
+import connectCloudinary from "./configs/cloudinary.js";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/userRoutes.js";
 import contactRoutes from "./routes/contact.js";
@@ -22,7 +22,7 @@ dotenv.config();
 
 // Connect to DB and Cloudinary
 connectDB();
-// connectCloudinary();
+connectCloudinary();
 
 // Setup Express and HTTP Server
 const app = express();
@@ -47,7 +47,7 @@ app.listen(PORT, () => {
 });
 
 
-// cron.schedule("*/4 * * * *", async () => {
-//   console.log(`🕒 [${new Date().toLocaleTimeString()}] Cron job triggered`);
-//   await runScheduledCheckin();
-// });
+cron.schedule("*/4 * * * *", async () => {
+  console.log(`🕒 [${new Date().toLocaleTimeString()}] Cron job triggered`);
+  await runScheduledCheckin();
+});

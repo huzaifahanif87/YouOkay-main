@@ -17,7 +17,6 @@ import AboutUsPage from './pages/AboutUs'
 import Footer from "./components/Footer"
 import ScrollToTop from './components/UI/ScrollToTop'
 import ContactPage from './pages/Contact'
-import PayNowPage from './pages/PayNow'
 
 const App = () => {
 
@@ -42,7 +41,6 @@ const App = () => {
           <Route path="settings" element={<SettingsPanel />}/>
           <Route path='update-phone' element={<UpdatePhone/>}/>
           <Route path='delete' element={<DeleteAccount/>}/>
-          <Route path='paynow' element={<PayNowPage/>}/>
         </Route>
       </Routes>
       <Footer/>
