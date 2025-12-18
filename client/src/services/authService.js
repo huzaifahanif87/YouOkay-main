@@ -17,6 +17,9 @@ export const authService = {
     return await api.post("/auth/update-phone/verify", { phone, code });
   },
 
+  async toggleAlerts() {
+    return await api.put("/auth/alerts/toggle");
+  },
 
   async updateProfile(formData) {
     const response = await api.put("/auth/update", formData, {

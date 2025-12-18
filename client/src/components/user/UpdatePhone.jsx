@@ -6,8 +6,6 @@ import toast from "react-hot-toast";
 const UpdatePhone = () => {
     const [step, setStep] = useState(1);
     const [phone, setPhone] = useState("");
-    const [code, setCode] = useState("");
-    const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [otp, setOtp] = useState(["", "", "", "", "", ""]);
     const inputsRef = useRef([]);
@@ -20,21 +18,6 @@ const UpdatePhone = () => {
             setStep(2);
         } catch (err) {
             toast.error(err.response?.data?.message || "Failed to send code");
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const verifyAndUpdate = async () => {
-        try {
-            setLoading(true);
-            await authService.verifyAndUpdatePhone(phone, code);
-            toast.success("Phone number updated successfully");
-            setStep(1);
-            setPhone("");
-            setCode("");
-        } catch (err) {
-            toast.error(err.response?.data?.message || "Failed to update number");
         } finally {
             setLoading(false);
         }
@@ -70,7 +53,6 @@ const UpdatePhone = () => {
 
     const handleVerifyCode = async (manualCode) => {
         const fullCode = manualCode || otp.join("");
-        setError(null);
         try {
             await authService.verifyAndUpdatePhone(phone, fullCode);
             setStep(1);
@@ -79,7 +61,7 @@ const UpdatePhone = () => {
             toast.success("Phone number updated successfully");
 
         } catch (err) {
-            setError(err.response?.data?.message || "Verification failed.");
+            toast.error(err.response?.data?.message || "Verification failed.");
         }
     };
 
@@ -93,9 +75,18 @@ const UpdatePhone = () => {
                         type="tel"
                         placeholder="Enter new phone number"
                         value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
+                        onChange={(e) => {
+                            let value = e.target.value;
+                            value = value.replace(/[^\d+]/g, "");
+                            if (value.includes("+")) {
+                                value =
+                                    "+" + value.replace(/\+/g, "").replace(/^/, "");
+                            }
+                            setPhone(value);
+                        }}
                         className="input p-2 border-b border-gray-300 rounded w-full mb-4 focus:outline-none focus:ring-0 focus:border-gray-500"
                     />
+
 
                     <button onClick={sendCode} disabled={loading || !phone} className="btn-blue w-full max-w-40 text-white mt-4 p-2 border border-blue-600 bg-blue-600 hover:bg-blue-700 rounded-xl">
                         {loading ? "Sending..." : "Send Code"}

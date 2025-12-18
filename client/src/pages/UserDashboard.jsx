@@ -10,7 +10,6 @@ const navItems = [
   { to: "/user/subscription", label: "Subscription", icon: <CreditCard className="w-5 h-5" /> },
   { to: "/user/settings", label: "Settings", icon: <Settings className="w-5 h-5" /> },
   { to: "/user/update-phone", label: "Update Phone", icon: <PhoneCall className="w-5 h-5" /> },
-  {to: "/user/paynow", label: "Pay Now", icon: <Delete className="w-5 h-5" /> },
   { to: "/user/delete", label: "Delete Account", icon: <Delete className="w-5 h-5" /> },
 
 ];

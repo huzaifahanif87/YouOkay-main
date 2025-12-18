@@ -3,6 +3,6 @@ import express from 'express';
 import { handleIncomingMessage } from '../controllers/messageWebhook.js';
 const twilioRouter = express.Router();
 
-twilioRouter.post('/webhook/twilio', handleIncomingMessage);
+twilioRouter.post('/incoming', handleIncomingMessage);
 
 export default twilioRouter;

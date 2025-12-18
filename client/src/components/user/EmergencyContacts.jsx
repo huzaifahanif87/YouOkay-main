@@ -121,8 +121,8 @@ export default function EmergencyContacts() {
       ? "Updating..."
       : "Adding..."
     : editingId
-    ? "Update Contact"
-    : "Add Contact";
+      ? "Update Contact"
+      : "Add Contact";
 
   return (
     <div className="p-1 max-w-[70vw] md:max-w-3xl">
@@ -142,10 +142,18 @@ export default function EmergencyContacts() {
         />
         <input
           value={form.phone}
-          onChange={(e) => setForm({ ...form, phone: e.target.value })}
+          onChange={(e) => {
+            let value = e.target.value;
+            value = value.replace(/[^\d+]/g, "");
+            if (value.includes("+")) {
+              value = "+" + value.replace(/\+/g, "");
+            }
+            setForm({ ...form, phone: value });
+          }}
           placeholder="Phone"
           className="border border-gray-300 p-2 rounded"
         />
+
         <input
           value={form.relationship}
           onChange={(e) =>

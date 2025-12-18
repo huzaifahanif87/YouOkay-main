@@ -1,13 +1,8 @@
-
-
-
-
 import express from "express";
 import "dotenv/config";
 import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./configs/db.js";
-
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/userRoutes.js";
 import contactRoutes from "./routes/contact.js";
@@ -20,9 +15,8 @@ import { runScheduledCheckin } from "./utils/checkinScheduler.js";
 
 dotenv.config();
 
-// Connect to DB and Cloudinary
+// Connect to DB
 connectDB();
-// connectCloudinary();
 
 // Setup Express and HTTP Server
 const app = express();

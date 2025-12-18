@@ -226,7 +226,7 @@ const Signup = () => {
                   {...register("dob")}
                   placeholder="Date of Birth"
                   type="date"
-                  max={new Date(Date.now() - 3 * 365 * 24 * 60 * 60 * 1000).toISOString().split("T")[0]}
+                  max={new Date(Date.now() - 5 * 365 * 24 * 60 * 60 * 1000).toISOString().split("T")[0]}
                   className="input p-2 border border-gray-300 rounded-lg w-full "
                 />
                 {errors.dob && <p className="text-red-500 text-sm">{errors.dob.message}</p>}

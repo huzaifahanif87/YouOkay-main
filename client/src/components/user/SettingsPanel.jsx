@@ -4,6 +4,8 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { useAuth } from "../../context/AuthContext"
 import toast from "react-hot-toast"
+import { authService } from "../../services/authService";
+import { useNavigate } from "react-router-dom"
 
 const schema = yup.object().shape({
   firstName: yup.string().required("First name is required"),
@@ -14,9 +16,11 @@ const schema = yup.object().shape({
   newPassword: yup.string(),
 })
 
-const SettingsPanel = ({ setShowSettings }) => {
-  const { user, updateProfile } = useAuth()
+const SettingsPanel = () => {
+  const { user , refreshUser} = useAuth()
+  const navigate = useNavigate();
   const [updating, setUpdating] = useState(false)
+  const updateProfile = authService.updateProfile;
 
   const {
     register,
@@ -44,8 +48,9 @@ const SettingsPanel = ({ setShowSettings }) => {
     try {
       setUpdating(true)
       const result = await updateProfile(formData)
-      if (result.success) {
-        setShowSettings(false)
+      if (result) {
+        refreshUser();
+        navigate("/user/me")        
         toast.success("Updated successfully")
       }
     } catch (err) {
@@ -100,7 +105,7 @@ const SettingsPanel = ({ setShowSettings }) => {
             <input
               {...register("dob")}
               type="date"
-              max={new Date(Date.now() - 3 * 365 * 24 * 60 * 60 * 1000).toISOString().split("T")[0]}
+              max={new Date(Date.now() - 5 * 365 * 24 * 60 * 60 * 1000).toISOString().split("T")[0]}
               className="mt-1 w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
             />
             {errors.dob && <p className="text-red-500 text-xs mt-1">{errors.dob.message}</p>}
