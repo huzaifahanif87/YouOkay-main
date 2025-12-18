@@ -5,6 +5,7 @@ import * as yup from "yup"
 import { useAuth } from "../../context/AuthContext"
 import toast from "react-hot-toast"
 import { authService } from "../../services/authService";
+import { useNavigate } from "react-router-dom"
 
 const schema = yup.object().shape({
   firstName: yup.string().required("First name is required"),
@@ -15,8 +16,9 @@ const schema = yup.object().shape({
   newPassword: yup.string(),
 })
 
-const SettingsPanel = ({ setShowSettings }) => {
-  const { user } = useAuth()
+const SettingsPanel = () => {
+  const { user , refreshUser} = useAuth()
+  const navigate = useNavigate();
   const [updating, setUpdating] = useState(false)
   const updateProfile = authService.updateProfile;
 
@@ -46,8 +48,9 @@ const SettingsPanel = ({ setShowSettings }) => {
     try {
       setUpdating(true)
       const result = await updateProfile(formData)
-      if (result.success) {
-        setShowSettings(false)
+      if (result) {
+        refreshUser();
+        navigate("/user/me")        
         toast.success("Updated successfully")
       }
     } catch (err) {

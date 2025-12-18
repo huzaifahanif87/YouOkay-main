@@ -6,7 +6,6 @@ import toast from "react-hot-toast";
 const UpdatePhone = () => {
     const [step, setStep] = useState(1);
     const [phone, setPhone] = useState("");
-    const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [otp, setOtp] = useState(["", "", "", "", "", ""]);
     const inputsRef = useRef([]);
@@ -54,7 +53,6 @@ const UpdatePhone = () => {
 
     const handleVerifyCode = async (manualCode) => {
         const fullCode = manualCode || otp.join("");
-        setError(null);
         try {
             await authService.verifyAndUpdatePhone(phone, fullCode);
             setStep(1);
@@ -63,7 +61,7 @@ const UpdatePhone = () => {
             toast.success("Phone number updated successfully");
 
         } catch (err) {
-            setError(err.response?.data?.message || "Verification failed.");
+            toast.error(err.response?.data?.message || "Verification failed.");
         }
     };
 
