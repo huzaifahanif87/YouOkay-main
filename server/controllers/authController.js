@@ -53,11 +53,6 @@ export const completeRegistration = async (req, res) => {
   const existingEmail = await User.findOne({ email });
   if (existingEmail) return res.status(400).json({ message: "User already registered with this email" });
 
-  let imageUrl;
-  if (req.file) {
-    const uploadedResponse = await cloudinary.uploader.upload(req.file.path);
-    imageUrl = uploadedResponse.secure_url;
-  }
 
   const newUser = new User({
     phone,
@@ -66,7 +61,6 @@ export const completeRegistration = async (req, res) => {
     firstName,
     lastName,
     dob,
-    image: imageUrl,
     isPhoneVerified: true,
   });
 
