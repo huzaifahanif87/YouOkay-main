@@ -24,7 +24,7 @@ export default function ProfileOverview() {
               : "Not provided"
           } />
         <ProfileRow icon={<ShieldCheck className="text-blue-500 w-5 h-5" />} label="Phone Verified" value={user?.isPhoneVerified ? "Yes" : "No"} />
-        <ProfileRow icon={<Pause className="text-blue-500 w-5 h-5" />} label="Paused Status" value={user?.isPaused ? `Paused until ${new Date(user.pausedUntil).toLocaleDateString()}` : "Active"} />
+        <ProfileRow icon={<Pause className="text-blue-500 w-5 h-5" />} label="Paused Status" value={user?.isPaused ? `Paused` : "Active"} />
       </div>
     </div>
   );

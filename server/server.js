@@ -47,7 +47,7 @@ app.listen(PORT, () => {
 });
 
 
-cron.schedule("*/4 * * * *", async () => {
-  console.log(`🕒 [${new Date().toLocaleTimeString()}] Cron job triggered`);
-  await runScheduledCheckin();
-});
+// cron.schedule("*/4 * * * *", async () => {
+//   console.log(`🕒 [${new Date().toLocaleTimeString()}] Cron job triggered`);
+//   await runScheduledCheckin();
+// });

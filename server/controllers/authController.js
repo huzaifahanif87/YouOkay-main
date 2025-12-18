@@ -138,23 +138,7 @@ export const login = async (req, res) => {
     res.json({
       message: "Login successful",
       token,
-      user: {
-        id: user._id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        phone: user.phone,
-        dob: user.dob,
-        plan: user.plan,
-        role: user.role,
-        isPhoneVerified: user.isPhoneVerified,
-        lastCheckIn: user.lastCheckIn,
-        isPaused: user.isPaused,
-        pausedUntil: user.pausedUntil,
-        emergencyContacts: user.emergencyContacts,
-        createdAt: user.createdAt,
-        updatedAt: user.updatedAt,
-      },
+      user,
     })
   } catch (error) {
     console.error("Login error:", error)
@@ -165,33 +149,16 @@ export const login = async (req, res) => {
 export const getCurrentUser = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).select("-password");
-    if (!user) return res.status(404).json({ message: "User not found" });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
-    res.json({
-      user: {
-        id: user._id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        phone: user.phone,
-        dob: user.dob,
-        plan: user.plan,
-        role: user.role,
-        isPhoneVerified: user.isPhoneVerified,
-        lastCheckIn: user.lastCheckIn,
-        isPaused: user.isPaused,
-        pausedUntil: user.pausedUntil,
-        emergencyContacts: user.emergencyContacts,
-        createdAt: user.createdAt,
-        updatedAt: user.updatedAt,
-      }
-    });
+    res.json({ user });
   } catch (error) {
     console.error("Get current user error:", error);
     res.status(500).json({ message: "Failed to fetch user" });
   }
 };
-
 
 export const updateUser = async (req, res) => {
   try {
@@ -221,19 +188,7 @@ export const updateUser = async (req, res) => {
 
     res.json({
       message: "Profile updated successfully",
-      user: {
-        id: user._id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        phone: user.phone,
-        dob: user.dob,
-        plan: user.plan,
-        pausedUntil: user.pausedUntil,
-        isPhoneVerified: user.isPhoneVerified,
-        createdAt: user.createdAt,
-        updatedAt: user.updatedAt,
-      }
+      user,
     });
   } catch (error) {
     console.error("Update user error:", error);
@@ -242,6 +197,26 @@ export const updateUser = async (req, res) => {
 };
 
 
+export const toggleAlerts = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    // Toggle isPaused
+    user.isPaused = !user.isPaused;
+    await user.save();
+
+    res.json({
+      message: user.isPaused ? "Alerts paused" : "Alerts resumed",
+      isPaused: user.isPaused,
+      user,
+    });
+  } catch (error) {
+    console.error("Toggle alerts error:", error);
+    res.status(500).json({ message: "Failed to toggle alerts" });
+  }
+};
 
 
 export const deleteUser = async (req, res) => {

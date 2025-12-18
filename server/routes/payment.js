@@ -1,42 +1,11 @@
-// // routes/payments.js
-// import express from "express"
-// import { auth } from "../middlewares/auth.js"
-// import User from "../models/User.js"
-
-// const paymentRouter = express.Router()
-
-// paymentRouter.post("/upgrade", auth, async (req, res) => {
-//   try {
-//     const { paymentToken } = req.body
-
-//     // TODO: Optionally verify token with gateway (Stripe, etc.)
-
-//     const userId = req.user._id
-
-//     const user = await User.findById(userId)
-//     if (!user) return res.status(404).json({ message: "User not found" })
-
-//     user.plan = "premium"
-//     await user.save()
-
-//     res.status(200).json({ message: "User upgraded to premium" })
-//   } catch (error) {
-//     console.error("Upgrade error:", error)
-//     res.status(500).json({ message: "Failed to upgrade user" })
-//   }
-// })
-
-// export default paymentRouter
-
-
-
 import express from "express";
 import Stripe from "stripe";
 import { auth } from "../middlewares/auth.js"
+import User from "../models/User.js";
 const paymentRouter = express.Router();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-paymentRouter.post("/",auth, async (req, res) => {
+paymentRouter.post("/", auth, async (req, res) => {
   try {
     const userId = req.user._id.toString(); // Assuming you're using middleware for JWT
     console.log(userId)
@@ -53,8 +22,8 @@ paymentRouter.post("/",auth, async (req, res) => {
       ],
       success_url: `${origin}/user/emergencyContacts`,
       cancel_url: `${origin}/user/subscription`,
-      metadata: { 
-        userId:req.user._id.toString() 
+      metadata: {
+        userId: req.user._id.toString()
       },
     });
 
@@ -67,15 +36,27 @@ paymentRouter.post("/",auth, async (req, res) => {
 
 
 
-paymentRouter.post("/cancel-subscription",auth, async (req, res) => {
-  const { subscriptionId } = req.body;
+paymentRouter.post("/cancel-subscription", auth, async (req, res) => {
+  const userId = req.user._id.toString();
 
+  console.log(req.body);
+  const user = await User.findById(userId);
+  if (!user) return res.status(404).json({ message: "User not found" });
+  const subscriptionId = user.subscriptionId;
   try {
     const deleted = await stripe.subscriptions.update(subscriptionId, {
       cancel_at_period_end: true,
     });
+    const cancelAtDate = new Date(deleted.cancel_at * 1000);
+    user.subscriptionStatus = "canceled";
+    user.currentPeriodEnd = cancelAtDate;
+    await user.save();
 
-    res.json({ message: "Subscription will cancel at period end", status: deleted.status });
+    res.json({
+      message: `Subscription will cancel at period end on ${cancelAtDate.toISOString()}`,
+      status: deleted.status,
+      cancelAt: cancelAtDate, // optional: return as Date object
+    });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

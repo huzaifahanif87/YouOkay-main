@@ -1,7 +1,7 @@
 import express from "express";
 import Stripe from "stripe";
 import bodyParser from "body-parser";
-import User from "../models/User.js"; // Adjust path if different
+import User from "../models/User.js";
 
 const webhookRouter = express.Router();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -28,21 +28,26 @@ webhookRouter.post(
       switch (event.type) {
         case "checkout.session.completed": {
           const session = event.data.object;
-          
+
           const userId = session.metadata?.userId;
           const subscriptionId = session.subscription;
           const customerId = session.customer;
 
           if (!userId || !subscriptionId) break;
-          
+
 
           const subscription = await stripe.subscriptions.retrieve(subscriptionId);
-          
+          const currentPeriodEnd = new Date(
+            Date.now() + 30 * 24 * 60 * 60 * 1000
+          );
+
 
           await User.findByIdAndUpdate(userId, {
             stripeCustomerId: customerId,
             subscriptionId,
             subscriptionStatus: subscription.status,
+            currentPeriodEnd,
+            lastCheckIn: new Date(),
             plan: "premium", // ✅ Upgrade to premium on success
           });
 
@@ -56,7 +61,7 @@ webhookRouter.post(
             { subscriptionId: subscription.id },
             {
               subscriptionStatus: "canceled",
-              plan: "free", 
+              plan: "free",
             }
           );
           break;
@@ -75,4 +80,4 @@ webhookRouter.post(
 );
 
 export default webhookRouter;
- 
+
