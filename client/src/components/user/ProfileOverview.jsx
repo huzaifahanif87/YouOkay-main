@@ -6,10 +6,9 @@ export default function ProfileOverview() {
   const { user } = useAuth();
 
   return (
-    <div className="max-w-2xl space-y-6 ">
+    <div className="max-w-2xl space-y-4 ">
       <h2 className="text-3xl font-bold font-playfair text-primary/70">Profile Overview</h2>
-
-      <div className="bg-white rounded-2xl shadow-md  p-6 grid gap-5">
+      <div className="bg-white rounded-2xl shadow-md  p-4 grid gap-5">
         <ProfileRow icon={<UserCircle className="text-blue-500 w-5 h-5" />} label="Name" value={`${user?.firstName} ${user?.lastName}`} />
         <ProfileRow icon={<Mail className="text-blue-500 w-5 h-5" />} label="Email" value={user?.email} />
         <ProfileRow icon={<Phone className="text-blue-500 w-5 h-5" />} label="Phone" value={user?.phone} />
