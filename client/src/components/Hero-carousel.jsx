@@ -87,17 +87,17 @@ export function HeroCarousel() {
       {/* Content */}
       <div
         ref={contentRef}
-        className="relative z-10 mt-5 max-w-4xl text-center px-6 py-12 transition-all duration-1000 ease-out opacity-0 translate-y-12"
+        className="relative z-10 mt-5 max-w-4xl text-center px-6 py-12 transition-all duration-1000 ease-out opacity-0 translate-y-4 md:translate-y-12"
       >
         <RevealOnScroll>
-          <h1 className="text-white mt-40 md:mt-0 text-5xl md:text-6xl font-bold mb-4">
+          <h1 className="text-white mt-40 md:mt-0 text-3xl md:text-6xl font-bold mb-4">
             {current.title}
             <br />
             <span className="text-secondary">{current.subtitle}</span>
           </h1>
         </RevealOnScroll>
         <RevealOnScroll>
-          <p className="text-white text-lg mb-8">{current.description}</p>
+          <p className="text-white text-xs md:text-lg mb-8">{current.description}</p>
         </RevealOnScroll>
 
         {/* Buttons */}
