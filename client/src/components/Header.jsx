@@ -158,18 +158,6 @@ function Header() {
               ))}
             </nav>
 
-            {/* Mobile Actions (Search and User) */}
-            <div className="mt-auto pt-8 border-t border-gray-100 flex flex-col gap-4">
-              <button className="flex items-center gap-3 text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium">
-                <Search className="w-6 h-6" />
-                <span>Search</span>
-              </button>
-              <button className="flex items-center gap-3 text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium">
-                <User className="w-6 h-6" />
-                <span>Account</span>
-              </button>
-            </div>
-
           </div>
         </div>
       </div>
