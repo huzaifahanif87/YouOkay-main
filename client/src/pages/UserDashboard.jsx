@@ -37,7 +37,7 @@ const UserDashboard = () => {
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 pt-16 md:pt-25">
       {/* Content Section */}
-      <div className="flex flex-1">
+      <div className="flex flex-1 w-full overflow-x-auto">
         <aside className="w-20 lg:w-64 bg-white shadow-md p-4 space-y-2 transition-all duration-300 border-r border-gray-300">
           <h1 className="text-xl pl-4 font-bold text-blue-600 mb-6 hidden lg:block">
             User Panel
@@ -60,7 +60,7 @@ const UserDashboard = () => {
         <div className="flex items-end justify-between max-w-7xl mx-auto">
           <div className="flex items-center gap-2">
             <img src="/logo.png" alt="HA Software Logo" className="h-8 w-auto" />
-            <div className="text-xs text-gray-400">
+            <div className="text-[7px] md:text-xs text-gray-400">
               YouOkay is a product of HASOFTWARES.
             </div>
           </div>
@@ -68,7 +68,7 @@ const UserDashboard = () => {
             <Link to='https://hasoftwares.com.pk' target="_blank" rel="noopener noreferrer">
           <div className="flex items-center gap-2">
             <img src={assets.HAlogo} alt="HA Software Logo" className="h-8 w-auto" />
-            <div className="text-xs text-gray-400">
+            <div className="text-[7px] md:text-xs text-gray-400">
               © 2025 HA SOFTWARES. All rights reserved.
             </div>
           </div>
