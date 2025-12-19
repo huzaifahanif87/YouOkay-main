@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="bg-primary text-white max-w-screen">
       <div className="max-w-screen-xl mx-auto px-4 py-8"> {/* Changed max-w-screen to max-w-screen-xl for better content constraint */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12"> {/* Increased gap for better spacing */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 md:gap-12"> {/* Increased gap for better spacing */}
           {/* Brand Info */}
           <div className="space-y-4"> {/* Increased space-y for better vertical spacing */}
             <div className="h-16 mx[-20px] flex items-center overflow-hidden">
